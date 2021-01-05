@@ -356,8 +356,8 @@
 						key: "seek",
 						value: function(e) {
 							e = Math.max(e, 0), this.video.duration && (e = Math.min(e, this.video.duration)), this.video.currentTime <
-								e ? this.notice(this.tran("FF") + " " + (e - this.video.currentTime).toFixed(0) + " " + this.tran("s")) :
-								this.video.currentTime > e && this.notice(this.tran("REW") + " " + (this.video.currentTime - e).toFixed(
+								e ? this.notice(this.tran("快进") + " " + (e - this.video.currentTime).toFixed(0) + " " + this.tran("s")) :
+								this.video.currentTime > e && this.notice(this.tran("快退") + " " + (this.video.currentTime - e).toFixed(
 									0) + " " + this.tran("s")), this.video.currentTime = e, this.danmaku && this.danmaku.seek(), this.bar.set(
 									"played", e / this.video.duration, "width")
 						}
@@ -368,7 +368,7 @@
 							if (this.paused = !1, this.video.paused && this.bezel.switch(v.default.play), this.template.playButton.innerHTML =
 								v.default.pause, r.default.resolve(this.video.play()).catch(function() {
 									e.pause()
-								}).then(function() {}), this.time.enable("loading"), this.time.enable("progress"), this.container.classList
+								}).then(function() {}), this.time.enable("加载中"), this.time.enable("progress"), this.container.classList
 								.remove("yzmplayer-paused"), this.container.classList.add("yzmplayer-playing"), this.danmaku && this.danmaku
 								.play(), this.options.mutex)
 								for (var t = 0; t < J.length; t++) this !== J[t] && J[t].pause()
@@ -526,14 +526,14 @@
 									a = (new DOMParser).parseFromString(i, "text/html").body.firstChild;
 								this.template.videoWrap.insertBefore(a, this.template.videoWrap.getElementsByTagName("div")[0]), this.prevVideo =
 									this.video, this.video = a, this.initVideo(this.video, this.quality.type || this.options.video.type),
-									this.seek(this.prevVideo.currentTime), this.notice(this.tran("Switching to") + " " + this.quality.name +
-										" " + this.tran("quality"), -1), this.events.trigger("quality_start", this.quality), this.on("canplay",
+									this.seek(this.prevVideo.currentTime), this.notice(this.tran("正在切换至") + " " + this.quality.name +
+										" " + this.tran("画质"), -1), this.events.trigger("quality_start", this.quality), this.on("canplay",
 										function() {
 											if (t.prevVideo) {
 												if (t.video.currentTime !== t.prevVideo.currentTime) return void t.seek(t.prevVideo.currentTime);
 												t.template.videoWrap.removeChild(t.prevVideo), t.video.classList.add("yzmplayer-video-current"), n ||
-													t.video.play(), t.prevVideo = null, t.notice(t.tran("Switched to") + " " + t.quality.name + " " + t
-														.tran("quality")), t.switchingQuality = !1, t.events.trigger("quality_end")
+													t.video.play(), t.prevVideo = null, t.notice(t.tran("正在切换至") + " " + t.quality.name + " " + t
+														.tran("画质")), t.switchingQuality = !1, t.events.trigger("quality_end")
 											}
 										})
 							}
@@ -1367,7 +1367,7 @@
 					'</div>\n                    </div>\n                    <div class="yzmplayer-setting-item yzmplayer-setting-loop">\n                        <span class="yzmplayer-label">',
 					t += s(r("Loop")), t +=
 					'</span>\n                        <div class="yzmplayer-toggle">\n                            <input class="yzmplayer-toggle-setting-input" type="checkbox" name="yzmplayer-toggle">\n                            <label for="yzmplayer-toggle"></label>\n                        </div>\n                    </div><div class="yzmplayer-setting-item yzmplayer-setting-jlast"><span class="yzmplayer-label">跳过片尾 <input id="jumptime" placeholder="单位/秒"></span><div class="yzmplayer-toggle"><input class="yzmplayer-toggle-setting-input" type="checkbox" name="yzmplayer-toggle"><label for="yzmplayer-toggle"></label></div></div><div class="yzmplayer-setting-item yzmplayer-setting-jfrist"><span class="yzmplayer-label">跳过片头 <input id="fristtime" placeholder="单位/秒"></span><div class="yzmplayer-toggle"><input class="yzmplayer-toggle-setting-input" type="checkbox" name="yzmplayer-toggle"><label for="yzmplayer-toggle"></label></div></div>\n             </div>\n                <div class="yzmplayer-setting-speed-panel">\n                    <div class="yzmplayer-setting-speed-item" data-speed="0.5">\n                        <span class="yzmplayer-label">0.5</span>\n                    </div>\n                    <div class="yzmplayer-setting-speed-item" data-speed="0.75">\n                        <span class="yzmplayer-label">0.75</span>\n                    </div>\n                    <div class="yzmplayer-setting-speed-item" data-speed="1">\n                        <span class="yzmplayer-label">',
-					t += s(r("Normal")), t +=
+					t += s(r("正常")), t +=
 					'</span>\n                    </div>\n                    <div class="yzmplayer-setting-speed-item" data-speed="1.25">\n                        <span class="yzmplayer-label">1.25</span>\n                    </div>\n                    <div class="yzmplayer-setting-speed-item" data-speed="1.5">\n                        <span class="yzmplayer-label">1.5</span>\n                    </div>\n                    <div class="yzmplayer-setting-speed-item" data-speed="2">\n                        <span class="yzmplayer-label">2</span>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class="yzmplayer-full">\n            <button id="pipButton" class="yzmplayer-icon yzmplayer-full-in-icon" data-balloon="',
 					t += s(r("画中画")), t +=
 					'" data-balloon-pos="up">\n                <span class="yzmplayer-icon-content">', t += l.fullWeb, t +=
@@ -2924,4 +2924,683 @@ var yzmck = {
 	clear: function(a) {
 		window.sessionStorage.clear()
 	}
-};
+};"text/html").body.firstChild;
+								this.template.videoWrap.insertBefore(a, this.template.videoWrap.getElementsByTagName("div")[0]), this.prevVideo =
+									this.video, this.video = a, this.initVideo(this.video, this.quality.type || this.options.video.type),
+									this.seek(this.prevVideo.currentTime), this.notice(this.tran("Switching to") + " " + this.quality.name +
+										" " + this.tran("quality"), -1), this.events.trigger("quality_start", this.quality), this.on("canplay",
+										function() {
+											if (t.prevVideo) {
+												if (t.video.currentTime !== t.prevVideo.currentTime) return void t.seek(t.prevVideo.currentTime);
+												t.template.videoWrap.removeChild(t.prevVideo), t.video.classList.add("yzmplayer-video-current"), n ||
+													t.video.play(), t.prevVideo = null, t.notice(t.tran("Switched to") + " " + t.quality.name + " " + t
+														.tran("quality")), t.switchingQuality = !1, t.events.trigger("quality_end")
+											}
+										})
+							}
+						}
+					}, {
+						key: "notice",
+						value: function(e) {
+							var t = this,
+								n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 2e3,
+								i = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : .8;
+							this.template.notice.innerHTML = e, this.template.notice.style.opacity = i, this.noticeTime &&
+								clearTimeout(this.noticeTime), this.events.trigger("notice_show", e), this.noticeTime = setTimeout(
+									function() {
+										t.template.notice.style.opacity = 0, t.events.trigger("notice_hide")
+									}, n)
+						}
+					}, {
+						key: "resize",
+						value: function() {
+							this.danmaku && this.danmaku.resize(), this.events.trigger("resize")
+						}
+					}, {
+						key: "speed",
+						value: function(e) {
+							this.video.playbackRate = e
+						}
+					}, {
+						key: "destroy",
+						value: function() {
+							J.splice(J.indexOf(this), 1), this.pause(), this.controller.destroy(), this.time.destroy(), this.video.src =
+								"", this.container.innerHTML = "", this.events.trigger("destroy");
+							for (var e in this) this.hasOwnProperty(e) && "paused" !== e && delete this[e]
+						}
+					}]), e
+				}();
+			t.default = Y
+		},
+		function(e, t, n) {
+			"use strict";
+			(function(t) {
+				function n() {}
+
+				function i(e, t) {
+					return function() {
+						e.apply(t, arguments)
+					}
+				}
+
+				function a(e) {
+					if (!(this instanceof a)) throw new TypeError("Promises must be constructed via new");
+					if ("function" != typeof e) throw new TypeError("not a function");
+					this._state = 0, this._handled = !1, this._value = void 0, this._deferreds = [], u(e, this)
+				}
+
+				function o(e, t) {
+					for (; 3 === e._state;) e = e._value;
+					if (0 === e._state) return void e._deferreds.push(t);
+					e._handled = !0, a._immediateFn(function() {
+						var n = 1 === e._state ? t.onFulfilled : t.onRejected;
+						if (null === n) return void(1 === e._state ? s : r)(t.promise, e._value);
+						var i;
+						try {
+							i = n(e._value)
+						} catch (e) {
+							return void r(t.promise, e)
+						}
+						s(t.promise, i)
+					})
+				}
+
+				function s(e, t) {
+					try {
+						if (t === e) throw new TypeError("A promise cannot be resolved with itself.");
+						if (t && ("object" === (void 0 === t ? "undefined" : d(t)) || "function" == typeof t)) {
+							var n = t.then;
+							if (t instanceof a) return e._state = 3, e._value = t, void l(e);
+							if ("function" == typeof n) return void u(i(n, t), e)
+						}
+						e._state = 1, e._value = t, l(e)
+					} catch (t) {
+						r(e, t)
+					}
+				}
+
+				function r(e, t) {
+					e._state = 2, e._value = t, l(e)
+				}
+
+				function l(e) {
+					2 === e._state && 0 === e._deferreds.length && a._immediateFn(function() {
+						e._handled || a._unhandledRejectionFn(e._value)
+					});
+					for (var t = 0, n = e._deferreds.length; t < n; t++) o(e, e._deferreds[t]);
+					e._deferreds = null
+				}
+
+				function c(e, t, n) {
+					this.onFulfilled = "function" == typeof e ? e : null, this.onRejected = "function" == typeof t ? t : null,
+						this.promise = n
+				}
+
+				function u(e, t) {
+					var n = !1;
+					try {
+						e(function(e) {
+							n || (n = !0, s(t, e))
+						}, function(e) {
+							n || (n = !0, r(t, e))
+						})
+					} catch (e) {
+						if (n) return;
+						n = !0, r(t, e)
+					}
+				}
+				var d = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e) {
+						return typeof e
+					} : function(e) {
+						return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" :
+							typeof e
+					},
+					p = setTimeout;
+				a.prototype.catch = function(e) {
+					return this.then(null, e)
+				}, a.prototype.then = function(e, t) {
+					var i = new this.constructor(n);
+					return o(this, new c(e, t, i)), i
+				}, a.all = function(e) {
+					return new a(function(t, n) {
+						function i(e, s) {
+							try {
+								if (s && ("object" === (void 0 === s ? "undefined" : d(s)) || "function" == typeof s)) {
+									var r = s.then;
+									if ("function" == typeof r) return void r.call(s, function(t) {
+										i(e, t)
+									}, n)
+								}
+								a[e] = s, 0 == --o && t(a)
+							} catch (e) {
+								n(e)
+							}
+						}
+						if (!e || void 0 === e.length) throw new TypeError("Promise.all accepts an array");
+						var a = Array.prototype.slice.call(e);
+						if (0 === a.length) return t([]);
+						for (var o = a.length, s = 0; s < a.length; s++) i(s, a[s])
+					})
+				}, a.resolve = function(e) {
+					return e && "object" === (void 0 === e ? "undefined" : d(e)) && e.constructor === a ? e : new a(function(t) {
+						t(e)
+					})
+				}, a.reject = function(e) {
+					return new a(function(t, n) {
+						n(e)
+					})
+				}, a.race = function(e) {
+					return new a(function(t, n) {
+						for (var i = 0, a = e.length; i < a; i++) e[i].then(t, n)
+					})
+				}, a._immediateFn = "function" == typeof t && function(e) {
+					t(e)
+				} || function(e) {
+					p(e, 0)
+				}, a._unhandledRejectionFn = function(e) {
+					"undefined" != typeof console && console && console.warn("Possible Unhandled Promise Rejection:", e)
+				}, e.exports = a
+			}).call(t, n(9).setImmediate)
+		},
+		function(e, t, n) {
+			"use strict";
+
+			function i(e, t) {
+				this._id = e, this._clearFn = t
+			}
+			var a = Function.prototype.apply;
+			t.setTimeout = function() {
+				return new i(a.call(setTimeout, window, arguments), clearTimeout)
+			}, t.setInterval = function() {
+				return new i(a.call(setInterval, window, arguments), clearInterval)
+			}, t.clearTimeout = t.clearInterval = function(e) {
+				e && e.close()
+			}, i.prototype.unref = i.prototype.ref = function() {}, i.prototype.close = function() {
+				this._clearFn.call(window, this._id)
+			}, t.enroll = function(e, t) {
+				clearTimeout(e._idleTimeoutId), e._idleTimeout = t
+			}, t.unenroll = function(e) {
+				clearTimeout(e._idleTimeoutId), e._idleTimeout = -1
+			}, t._unrefActive = t.active = function(e) {
+				clearTimeout(e._idleTimeoutId);
+				var t = e._idleTimeout;
+				t >= 0 && (e._idleTimeoutId = setTimeout(function() {
+					e._onTimeout && e._onTimeout()
+				}, t))
+			}, n(10), t.setImmediate = setImmediate, t.clearImmediate = clearImmediate
+		},
+		function(e, t, n) {
+			"use strict";
+			(function(e, t) {
+				! function(e, n) {
+					function i(e) {
+						"function" != typeof e && (e = new Function("" + e));
+						for (var t = new Array(arguments.length - 1), n = 0; n < t.length; n++) t[n] = arguments[n + 1];
+						var i = {
+							callback: e,
+							args: t
+						};
+						return c[l] = i, r(l), l++
+					}
+
+					function a(e) {
+						delete c[e]
+					}
+
+					function o(e) {
+						var t = e.callback,
+							i = e.args;
+						switch (i.length) {
+							case 0:
+								t();
+								break;
+							case 1:
+								t(i[0]);
+								break;
+							case 2:
+								t(i[0], i[1]);
+								break;
+							case 3:
+								t(i[0], i[1], i[2]);
+								break;
+							default:
+								t.apply(n, i)
+						}
+					}
+
+					function s(e) {
+						if (u) setTimeout(s, 0, e);
+						else {
+							var t = c[e];
+							if (t) {
+								u = !0;
+								try {
+									o(t)
+								} finally {
+									a(e), u = !1
+								}
+							}
+						}
+					}
+					if (!e.setImmediate) {
+						var r, l = 1,
+							c = {},
+							u = !1,
+							d = e.document,
+							p = Object.getPrototypeOf && Object.getPrototypeOf(e);
+						p = p && p.setTimeout ? p : e, "[object process]" === {}.toString.call(e.process) ? function() {
+							r = function(e) {
+								t.nextTick(function() {
+									s(e)
+								})
+							}
+						}() : function() {
+							if (e.postMessage && !e.importScripts) {
+								var t = !0,
+									n = e.onmessage;
+								return e.onmessage = function() {
+									t = !1
+								}, e.postMessage("", "*"), e.onmessage = n, t
+							}
+						}() ? function() {
+							var t = "setImmediate$" + Math.random() + "$",
+								n = function(n) {
+									n.source === e && "string" == typeof n.data && 0 === n.data.indexOf(t) && s(+n.data.slice(t.length))
+								};
+							e.addEventListener ? e.addEventListener("message", n, !1) : e.attachEvent("onmessage", n), r = function(n) {
+								e.postMessage(t + n, "*")
+							}
+						}() : e.MessageChannel ? function() {
+							var e = new MessageChannel;
+							e.port1.onmessage = function(e) {
+								s(e.data)
+							}, r = function(t) {
+								e.port2.postMessage(t)
+							}
+						}() : d && "onreadystatechange" in d.createElement("script") ? function() {
+							var e = d.documentElement;
+							r = function(t) {
+								var n = d.createElement("script");
+								n.onreadystatechange = function() {
+									s(t), n.onreadystatechange = null, e.removeChild(n), n = null
+								}, e.appendChild(n)
+							}
+						}() : function() {
+							r = function(e) {
+								setTimeout(s, 0, e)
+							}
+						}(), p.setImmediate = i, p.clearImmediate = a
+					}
+				}("undefined" == typeof self ? void 0 === e ? void 0 : e : self)
+			}).call(t, n(1), n(11))
+		},
+		function(e, t, n) {
+			"use strict";
+
+			function i() {
+				throw new Error("setTimeout has not been defined")
+			}
+
+			function a() {
+				throw new Error("clearTimeout has not been defined")
+			}
+
+			function o(e) {
+				if (d === setTimeout) return setTimeout(e, 0);
+				if ((d === i || !d) && setTimeout) return d = setTimeout, setTimeout(e, 0);
+				try {
+					return d(e, 0)
+				} catch (t) {
+					try {
+						return d.call(null, e, 0)
+					} catch (t) {
+						return d.call(this, e, 0)
+					}
+				}
+			}
+
+			function s(e) {
+				if (p === clearTimeout) return clearTimeout(e);
+				if ((p === a || !p) && clearTimeout) return p = clearTimeout, clearTimeout(e);
+				try {
+					return p(e)
+				} catch (t) {
+					try {
+						return p.call(null, e)
+					} catch (t) {
+						return p.call(this, e)
+					}
+				}
+			}
+
+			function r() {
+				f && y && (f = !1, y.length ? m = y.concat(m) : v = -1, m.length && l())
+			}
+
+			function l() {
+				if (!f) {
+					var e = o(r);
+					f = !0;
+					for (var t = m.length; t;) {
+						for (y = m, m = []; ++v < t;) y && y[v].run();
+						v = -1, t = m.length
+					}
+					y = null, f = !1, s(e)
+				}
+			}
+
+			function c(e, t) {
+				this.fun = e, this.array = t
+			}
+
+			function u() {}
+			var d, p, h = e.exports = {};
+			! function() {
+				try {
+					d = "function" == typeof setTimeout ? setTimeout : i
+				} catch (e) {
+					d = i
+				}
+				try {
+					p = "function" == typeof clearTimeout ? clearTimeout : a
+				} catch (e) {
+					p = a
+				}
+			}();
+			var y, m = [],
+				f = !1,
+				v = -1;
+			h.nextTick = function(e) {
+					var t = new Array(arguments.length - 1);
+					if (arguments.length > 1)
+						for (var n = 1; n < arguments.length; n++) t[n - 1] = arguments[n];
+					m.push(new c(e, t)), 1 !== m.length || f || o(l)
+				}, c.prototype.run = function() {
+					this.fun.apply(null, this.array)
+				}, h.title = "browser", h.browser = !0, h.env = {}, h.argv = [], h.version = "", h.versions = {}, h.on = u, h.addListener =
+				u, h.once = u, h.off = u, h.removeListener = u, h.removeAllListeners = u, h.emit = u, h.prependListener = u, h.prependOnceListener =
+				u, h.listeners = function(e) {
+					return []
+				}, h.binding = function(e) {
+					throw new Error("process.binding is not supported")
+				}, h.cwd = function() {
+					return "/"
+				}, h.chdir = function(e) {
+					throw new Error("process.chdir is not supported")
+				}, h.umask = function() {
+					return 0
+				}
+		},
+		function(e, t, n) {
+			"use strict";
+			Object.defineProperty(t, "__esModule", {
+				value: !0
+			});
+			var i = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e) {
+					return typeof e
+				} : function(e) {
+					return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" :
+						typeof e
+				},
+				a = n(13),
+				o = function(e) {
+					return e && e.__esModule ? e : {
+						default: e
+					}
+				}(a);
+			t.default = function(e) {
+				var t = {
+					container: e.element || document.getElementsByClassName("yzmplayer")[0],
+					live: !1,
+					autoplay: !1,
+					theme: "#b7daff",
+					loop: !1,
+					lang: (navigator.language || navigator.browserLanguage).toLowerCase(),
+					screenshot: !1,
+					hotkey: !0,
+					preload: "auto",
+					volume: .7,
+					apiBackend: o.default,
+					video: {},
+					contextmenu: [],
+					mutex: !0
+				};
+				for (var n in t) t.hasOwnProperty(n) && !e.hasOwnProperty(n) && (e[n] = t[n]);
+				return e.video && !e.video.type && (e.video.type = "auto"), "object" === i(e.danmaku) && e.danmaku && !e.danmaku
+					.user && (e.danmaku.user = "DIYgod"), e.subtitle && (!e.subtitle.type && (e.subtitle.type = "webvtt"), !e.subtitle
+						.fontSize && (e.subtitle.fontSize = "20px"), !e.subtitle.bottom && (e.subtitle.bottom = "40px"), !e.subtitle.color &&
+						(e.subtitle.color = "#fff")), e.video.quality && (e.video.url = [e.video.quality[e.video.defaultQuality].url]),
+					e.lang && (e.lang = e.lang.toLowerCase()), e.contextmenu = e.contextmenu.concat([{
+						text: "Video info",
+						click: function(e) {
+							e.infoPanel.triggle()
+						}
+					}, {
+						text: "",
+						link: ""
+					}]), e
+			}
+		},
+		function(e, t, n) {
+			"use strict";
+			Object.defineProperty(t, "__esModule", {
+				value: !0
+			});
+			var i = function(e, t, n, i, a) {
+				var o = new XMLHttpRequest;
+				o.onreadystatechange = function() {
+					if (4 === o.readyState) {
+						if (o.status >= 200 && o.status < 300 || 304 === o.status) {
+							var e = JSON.parse(o.responseText);
+							return 23 !== e.code ? i(o, e) : n(o, e)
+						}
+						a(o)
+					}
+				}, o.open(null !== t ? "POST" : "GET", e, !0), o.send(null !== t ? JSON.stringify(t) : null)
+			};
+			t.default = {
+				send: function(e, t, n) {
+					i(e, t, function(e, t) {
+						console.log("发送弹幕成功"), n && n()
+					}, function(e, t) {
+						alert(t.msg)
+					}, function(e) {
+						console.log("Request was unsuccessful: " + e.status)
+					})
+				},
+				read: function(e, t) {
+					i(e, null, function(e, n) {
+						t(null, n.danmuku)
+					}, function(e, n) {
+						t({
+							status: e.status,
+							response: n
+						})
+					}, function(e) {
+						t({
+							status: e.status,
+							response: null
+						})
+					})
+				}
+			}
+		},
+		function(e, t, n) {
+			"use strict";
+
+			function i(e) {
+				var t = this;
+				this.lang = e, this.tran = function(e) {
+					return a[t.lang] && a[t.lang][e] ? a[t.lang][e] : e
+				}
+			}
+			Object.defineProperty(t, "__esModule", {
+				value: !0
+			});
+			var a = {
+				"zh-cn": {
+					"Danmaku is loading": " ",
+					Top: "顶部",
+					Bottom: "底部",
+					Rolling: "滚动",
+					"Input danmaku, hit Enter": "发个弹幕见证当下",
+					"About author": "关于作者",
+					"yzmplayer feedback": "播放器意见反馈",
+					"About yzmplayer": "关于 yzmplayer 播放器",
+					Loop: "洗脑循环",
+					Speed: "速度",
+					"Opacity for danmaku": "弹幕透明度",
+					Normal: "正常",
+					"Please input danmaku content!": "要输入弹幕内容啊喂！",
+					"Set danmaku color": "弹幕颜色",
+					"Set danmaku type": "弹幕模式",
+					"Show danmaku": "显示弹幕",
+					"This video fails to load": "视频加载失败",
+					"Switching to": "正在切换至",
+					"Switched to": "已经切换至",
+					quality: "画质",
+					FF: "快进",
+					REW: "快退",
+					"Unlimited danmaku": "海量弹幕",
+					"Send danmaku": "发送弹幕",
+					Setting: "设置",
+					"Full screen": "全屏",
+					"Web full screen": "画中画",
+					Send: "发送",
+					Screenshot: "截图",
+					s: "秒",
+					"Show subtitle": "显示字幕",
+					"Hide subtitle": "隐藏字幕",
+					Volume: "音量",
+					Live: "直播",
+					"Video info": "视频统计信息"
+				},
+				"zh-tw": {
+					"Danmaku is loading": "彈幕加載中",
+					Top: "頂部",
+					Bottom: "底部",
+					Rolling: "滾動",
+					"Input danmaku, hit Enter": "輸入彈幕，Enter 發送",
+					"About author": "關於作者",
+					"yzmplayer feedback": "播放器意見反饋",
+					"About yzmplayer": "關於 yzmplayer 播放器",
+					Loop: "循環播放",
+					Speed: "速度",
+					"Opacity for danmaku": "彈幕透明度",
+					Normal: "正常",
+					"Please input danmaku content!": "請輸入彈幕内容啊！",
+					"Set danmaku color": "設置彈幕顏色",
+					"Set danmaku type": "設置彈幕類型",
+					"Show danmaku": "顯示彈幕",
+					"This video fails to load": "視頻加載失敗",
+					"Switching to": "正在切換至",
+					"Switched to": "已經切換至",
+					quality: "畫質",
+					FF: "快進",
+					REW: "快退",
+					"Unlimited danmaku": "海量彈幕",
+					"Send danmaku": "發送彈幕",
+					Setting: "設置",
+					"Full screen": "全屏",
+					"Web full screen": "頁面全屏",
+					Send: "發送",
+					Screenshot: "截圖",
+					s: "秒",
+					"Show subtitle": "顯示字幕",
+					"Hide subtitle": "隱藏字幕",
+					Volume: "音量",
+					Live: "直播",
+					"Video info": "視頻統計信息"
+				}
+			};
+			t.default = i
+		},
+		function(e, t, n) {
+			"use strict";
+
+			function i(e) {
+				return e && e.__esModule ? e : {
+					default: e
+				}
+			}
+
+			function a(e, t) {
+				if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function")
+			}
+			Object.defineProperty(t, "__esModule", {
+				value: !0
+			});
+			var o = function() {
+					function e(e, t) {
+						for (var n = 0; n < t.length; n++) {
+							var i = t[n];
+							i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(
+								e, i.key, i)
+						}
+					}
+					return function(t, n, i) {
+						return n && e(t.prototype, n), i && e(t, i), t
+					}
+				}(),
+				s = n(2),
+				r = i(s),
+				l = n(32),
+				c = i(l),
+				u = function() {
+					function e(t) {
+						a(this, e), this.container = t.container, this.options = t.options, this.index = t.index, this.tran = t.tran,
+							this.init()
+					}
+					return o(e, [{
+						key: "init",
+						value: function() {
+							this.container.innerHTML = (0, c.default)({
+									options: this.options,
+									index: this.index,
+									tran: this.tran,
+									icons: r.default,
+									video: {
+										current: !0,
+										pic: this.options.video.pic,
+										screenshot: this.options.screenshot,
+										preload: this.options.preload,
+										url: this.options.video.url,
+										subtitle: this.options.subtitle
+									}
+								}), this.volumeBar = this.container.querySelector(".yzmplayer-volume-bar-inner"), this.volumeBarWrap =
+								this.container.querySelector(".yzmplayer-volume-bar"), this.volumeBarWrapWrap = this.container.querySelector(
+									".yzmplayer-volume-bar-wrap"), this.volumeButton = this.container.querySelector(".yzmplayer-volume"),
+								this.volumeIcon = this.container.querySelector(".yzmplayer-volume-icon .yzmplayer-icon-content"), this.playedBar =
+								this.container.querySelector(".yzmplayer-played"), this.loadedBar = this.container.querySelector(
+									".yzmplayer-loaded"), this.playedBarWrap = this.container.querySelector(".yzmplayer-bar-wrap"), this.playedBarTime =
+								this.container.querySelector(".yzmplayer-bar-time"), this.danmaku = this.container.querySelector(
+									".yzmplayer-danmaku"), this.danmakuLoading = this.container.querySelector(".yzmplayer-danloading"),
+								this.video = this.container.querySelector(".yzmplayer-video-current"), this.bezel = this.container.querySelector(
+									".yzmplayer-bezel-icon"), this.playButton = this.container.querySelector(".yzmplayer-play-icon"), this.videoWrap =
+								this.container.querySelector(".yzmplayer-video-wrap"), this.controllerMask = this.container.querySelector(
+									".yzmplayer-controller-mask"), this.ptime = this.container.querySelector(".yzmplayer-ptime"), this.settingButton =
+								this.container.querySelector(".yzmplayer-setting-icon"), this.settingBox = this.container.querySelector(
+									".yzmplayer-setting-box"), this.mask = this.container.querySelector(".yzmplayer-mask"), this.loop =
+								this.container.querySelector(".yzmplayer-setting-loop"), this.loopToggle = this.container.querySelector(
+									".yzmplayer-setting-loop .yzmplayer-toggle-setting-input"), this.showDanmaku = this.container.querySelector(
+									".yzmplayer-setting-showdan"), this.showDanmakuToggle = this.container.querySelector(
+									".yzmplayer-showdan-setting-input"), this.unlimitDanmaku = this.container.querySelector(
+									".yzmplayer-setting-danunlimit"), this.unlimitDanmakuToggle = this.container.querySelector(
+									".yzmplayer-danunlimit-setting-input"), this.speed = this.container.querySelector(
+									".yzmplayer-setting-speed"), this.speedItem = this.container.querySelectorAll(
+									".yzmplayer-setting-speed-item"), this.danmakuOpacityBar = this.container.querySelector(
+									".yzmplayer-danmaku-bar-inner"), this.danmakuOpacityBarWrap = this.container.querySelector(
+									".yzmplayer-danmaku-bar"), this.danmakuOpacityBarWrapWrap = this.container.querySelector(
+									".yzmplayer-danmaku-bar-wrap"), this.danmakuOpacityBox = this.container.querySelector(
+									".yzmplayer-setting-danmaku"), this.dtime = this.container.querySelector(".yzmplayer-dtime"), this.controller =
+								this.container.querySelector(".yzmplayer-controller"), this.commentInput = this.container.querySelector(
+									".yzmplayer-comment-input"), this.commentButton = this.container.querySelector(
+									".yzmplayer-comment-icon"), this.yzmcomment = this.container.querySelector(
+									".yzm-yzmplayer-comment-input"), this.commentSettingBox = this.container.querySelector(
+									".yzmplayer-comment-setting-box"), this.commentSettingButton = this.container.querySelector(
+									".yzmplayer-comment-setting-icon"), this.commentSettingFill = this.container.querySelector(
+									".yzmplayer-comment-setting-icon path"), this.commentSendButton = this.container.querySelector(
+									".yzmplayer-send-icon"), this.commentSendFill = this.container.querySelector(
+									".yzmplayer-send-icon path"), this.commentColorSettingBox = this.container.querySelector(
+									".yzmplayer-comment-setting-color"), this.browserFullButton = this.container.querySelector(
+									".yzmplayer-
