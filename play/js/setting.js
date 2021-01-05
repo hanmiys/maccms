@@ -73,8 +73,8 @@ var YZM = {
 		if (config.title != '') {
 			$("#vodtitle").html(config.title + '  ' + config.sid);
 		};
-		doi.type = 'text/javascript';
-		ak.parentNode.insertBefore(doi, ak);
+// 		doi.type = 'text/javascript';
+// 		ak.parentNode.insertBefore(doi, ak);
 	},
 	'dmid': function() {
 		if (up.diyid[0] == 0 && config.id != '') {
