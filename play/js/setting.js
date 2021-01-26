@@ -18,22 +18,17 @@ var YZM = {
 		};
 	}(),
 	'start': function() {
-		$.ajax({
-			url: "/playerapi.php",
-			dataType: "json",
-			success: function(e) {
-				YZM.waittime = e.data.waittime
-				YZM.ads = e.data.ads;
-				config.logo = e.data.logo;
-				up.pbgjz = e.data.pbgjz;
-				up.trysee = e.data.trytime;
-				config.sendtime = e.data.sendtime;
-				config.color = e.data.color;
-				config.group_x = YZM.ads.set.group;
-				config.dmrule = e.data.dmrule;
-				//config.group = YZM.getCookie('group_id');
-				danmuon = e.data.danmuon;
-				if (config.group < config.group_x && YZM.ads.state == 'on' && config.group != '') {
+		        YZM.waittime = "2"
+				YZM.ads = "";
+				config.logo = "https://ae01.alicdn.com/kf/Hd77b33dc731f4c128d30fb092102c9ab2.jpg";
+				up.pbgjz = "";
+				up.trysee = "3";
+				config.sendtime = "1";
+				config.color = "#00a1d6";
+				config.group_x ="";
+				config.dmrule = "../dmku/dm_rule.html";
+				
+				if (config.group < config.group_x && YZM.ads.state == 'on' && config.group !=='') {
 					if (YZM.ads.set.state == '1') {
 						YZM.MYad.vod(YZM.ads.set.vod.url, YZM.ads.set.vod.link);
 					} else if (YZM.ads.set.state == '2') {
@@ -41,20 +36,11 @@ var YZM = {
 					}
 				} else {
 					YZM.play(config.url);
-				}
 			}
-		});
 	},
 	'play': function(url) {
-		if (!danmuon) {
-			YZM.player.play(url);
-		} else {
-			if (config.av != '') {
-				YZM.player.bdplay(url);
-			} else {
-				YZM.player.dmplay(url);
-			}
-		}
+		YZM.player.play(url);
+		
 		$(function() {
 			$(".yzmplayer-setting-speeds,.yzmplayer-setting-speed-item").on("click", function() {
 				$(".speed-stting").toggleClass("speed-stting-open");
@@ -130,7 +116,7 @@ var YZM = {
 			YZM.endedHandler();
 		});
 		YZM.dp.on('pause', function() {
-			YZM.MYad.pause.play(YZM.ads.pause.link, YZM.ads.pause.pic);
+			YZM.MYad.pause.play("https://hanmiys.com", "https://ae01.alicdn.com/kf/Hd77b33dc731f4c128d30fb092102c9ab2.jpg");
 		});
 		YZM.dp.on('play', function() {
 			YZM.MYad.pause.out();
@@ -154,14 +140,14 @@ var YZM = {
 			top.location.href = up.mylink + config.next;
 		},
 		'try': function() {
-			if (up.trysee > 0 && config.group < config.group_x && config.group != '') {
+			if (up.trysee > 0 && config.group < config.group_x && config.group !== '') {
 				$('#dmtext').attr({
 					"disabled": true,
 					"placeholder": "登陆后才能发弹幕yo(・ω・)"
 				});
 				setInterval(function() {
 					var t = up.trysee * 60;
-					var s = YZM.dp.video.currentTime;
+				// 	var s = YZM.dp.video.currentTime;
 					if (s > t) {
 						YZM.dp.video.currentTime = 0;
 						YZM.dp.pause();
@@ -323,189 +309,6 @@ var YZM = {
 		},
 		'ad': function(a, b) {}
 	},
-	'danmu': {
-		'send': function() {
-			g = $(".yzm-yzmplayer-send-icon");
-			d = $("#dmtext");
-			h = ".yzmplayer-comment-setting-";
-			$(h + "color input").on("click", function() {
-				r = $(this).attr("value");
-				setTimeout(function() {
-					d.css({
-						"color": r
-					});
-				}, 100);
-			});
-			$(h + "type input").on("click", function() {
-				t = $(this).attr("value");
-				setTimeout(function() {
-					d.attr("dmtype", t);
-				}, 100);
-			});
-
-			$(h + "font input").on("click", function() {
-				if (up.trysee > 0 && config.group == config.group_x) {
-					layer.msg("会员专属功能");
-					return;
-				};
-				t = $(this).attr("value");
-				setTimeout(function() {
-					d.attr("size", t);
-				}, 100);
-			});
-			g.on("click", function() {
-				a = document.getElementById("dmtext");
-				a = a.value;
-				b = d.attr("dmtype");
-				c = d.css("color");
-				z = d.attr("size");
-				if (up.trysee > 0 && config.group < config.group_x && config.group != '') {
-					layer.msg("登陆后才能发弹幕yo(・ω・)");
-					return;
-				}
-				for (var i = 0; i < up.pbgjz.length; i++) {
-					if (a.search(up.pbgjz[i]) != -1) {
-						layer.msg("请勿发送无意义内容，规范您的弹幕内容");
-						return;
-					}
-				}
-				if (a.length < 1) {
-					layer.msg("要输入弹幕内容啊喂！");
-					return;
-				}
-				var e = Date.parse(new Date());
-				var f = yzmck.get('dmsent', e);
-				if (e - f < config.sendtime * 1000) {
-					layer.msg('请勿频繁操作！发送弹幕需间隔' + config.sendtime + '秒~');
-					return;
-				}
-				d.val("");
-				YZM.dp.danmaku.send({
-					text: a,
-					color: c,
-					type: b,
-					size: z
-				});
-				yzmck.set('dmsent', e);
-			});
-
-			function k() {
-				g.trigger("click");
-			};
-			d.keydown(function(e) {
-				if (e.keyCode == 13) {
-					k();
-				};
-			});
-		},
-		'list': function() {
-			$(".yzmplayer-list-icon,.yzm-yzmplayer-send-icon").on("click", function() {
-				$(".list-show").empty();
-				$.ajax({
-					url: config.api + "?ac=get&id=" + YZM.id,
-					success: function(d) {
-						if (d.code == 23) {
-							a = d.danmuku;
-							b = d.name;
-							c = d.danum;
-							$(".danmuku-num").text(c)
-							$(a).each(function(index, item) {
-								l =
-									`<d class="danmuku-list" time="${item[0]}"><li>${YZM.formatTime(item[0])}</li><li title="${item[4]}">${item[4]}</li><li title="用户：${item[3]}  IP地址：${item[5]}">${item[6]}</li><li class="report" onclick="YZM.danmu.report(\'${item[5]}\',\'${b}\',\'${item[4]}\',\'${item[3]}\')">举报</li></d>`
-								$(".list-show").append(l);
-							})
-						}
-						$(".danmuku-list").on("dblclick", function() {
-							YZM.dp.seek($(this).attr("time"))
-						})
-					}
-				});
-			});
-			var liyih = '<div class="dmrules"><a target="_blank" href="' + config.dmrule + '">弹幕礼仪 </a></div>';
-			$("div.yzmplayer-comment-box:last").append(liyih);
-			$(".yzmplayer-watching-number").text(up.usernum);
-			$(".yzmplayer-info-panel-item-title-amount .yzmplayer-info-panel-item-title").html("违规词");
-			for (var i = 0; i < up.pbgjz.length; i++) {
-				var gjz_html = "<e>" + up.pbgjz[i] + "</e>";
-				$("#vod-title").append(gjz_html);
-			}
-			add('.yzmplayer-list-icon', ".yzmplayer-danmu", 'show');
-
-			function add(div1, div2, div3, div4) {
-				$(div1).click(function() {
-					$(div2).toggleClass(div3);
-					$(div4).remove();
-				});
-			}
-		},
-		'report': function(a, b, c, d) {
-			layer.confirm('' + c + '<!--br><br><span style="color:#333">请选择需要举报的类型</span-->', {
-				anim: 1,
-				title: '举报弹幕',
-				btn: ['违法违禁', '色情低俗', '恶意刷屏', '赌博诈骗', '人身攻击', '侵犯隐私', '垃圾广告', '剧透', '引战'],
-				btn3: function(index, layero) {
-					YZM.danmu.post_r(a, b, c, d, '恶意刷屏');
-				},
-				btn4: function(index, layero) {
-					YZM.danmu.post_r(a, b, c, d, '赌博诈骗');
-				},
-				btn5: function(index, layero) {
-					YZM.danmu.post_r(a, b, c, d, '人身攻击');
-				},
-				btn6: function(index, layero) {
-					YZM.danmu.post_r(a, b, c, d, '侵犯隐私');
-				},
-				btn7: function(index, layero) {
-					YZM.danmu.post_r(a, b, c, d, '垃圾广告');
-				},
-				btn8: function(index, layero) {
-					YZM.danmu.post_r(a, b, c, d, '剧透');
-				},
-				btn9: function(index, layero) {
-					YZM.danmu.post_r(a, b, c, d, '引战');
-				}
-			}, function(index, layero) {
-				YZM.danmu.post_r(a, b, c, d, '违法违禁');
-			}, function(index) {
-				YZM.danmu.post_r(a, b, c, d, '色情低俗');
-			});
-		},
-		'post_r': function(a, b, c, d, type) {
-			$.ajax({
-				type: "get",
-				url: config.api + '?ac=report&cid=' + d + '&user=' + a + '&type=' + type + '&title=' + b + '&text=' + c,
-				cache: false,
-				dataType: 'json',
-				beforeSend: function() {},
-				success: function(data) {
-					layer.msg("举报成功！感谢您为守护弹幕作出了贡献");
-				},
-				error: function(data) {
-					var msg = "服务故障 or 网络异常，稍后再试6！";
-					layer.msg(msg);
-				}
-			});
-		}
-	},
-// 	'setCookie': function(c_name, value, expireHours) {
-// 		var exdate = new Date();
-// 		exdate.setHours(exdate.getHours() + expireHours);
-// 		document.cookie = c_name + "=" + escape(value) + ((expireHours === null) ? "" : ";expires=" + exdate.toGMTString());
-// 	},
-// 	'getCookie': function(c_name) {
-// 		if (document.cookie.length > 0) {
-// 			c_start = document.cookie.indexOf(c_name + "=");
-// 			if (c_start !== -1) {
-// 				c_start = c_start + c_name.length + 1;
-// 				c_end = document.cookie.indexOf(";", c_start);
-// 				if (c_end === -1) {
-// 					c_end = document.cookie.length;
-// 				};
-// 				return unescape(document.cookie.substring(c_start, c_end));
-// 			}
-// 		}
-// 		return "";
-// 	},
 	'formatTime': function(seconds) {
 		return [parseInt(seconds / 60 / 60), parseInt(seconds / 60 % 60), parseInt(seconds % 60)].join(":").replace(
 			/\b(\d)\b/g, "0$1");
@@ -517,12 +320,8 @@ var YZM = {
 			}, 1 * 1000);
 		} else {
 			setTimeout(function() {
-				if (!danmuon) {
-					YZM.jump.head();
-				} else {
-					YZM.dp.notice("视频已准备就绪，即将为您播放");
-					YZM.video.play()
-				}
+				YZM.dp.notice("视频已准备就绪，即将为您播放");
+				YZM.video.play()
 			}, 1 * 1000);
 
 		}
@@ -593,27 +392,6 @@ var YZM = {
 				}
 			});
 		},
-		'dmplay': function(url) {
-			YZM.dmid();
-			YZM.dp = new yzmplayer({
-				autoplay: false,
-				element: document.getElementById('player'),
-				theme: config.color,
-				logo: config.logo,
-				video: {
-					url: url,
-					pic: config.pic,
-					type: 'auto',
-				},
-				danmaku: {
-					id: YZM.id,
-					api: config.api + '?ac=dm',
-					user: config.user
-				}
-			});
-			YZM.load();
-
-		},
 		'bdplay': function(url) {
 			YZM.dmid();
 			YZM.dp = new yzmplayer({
@@ -626,12 +404,6 @@ var YZM = {
 					pic: config.pic,
 					type: 'auto',
 				},
-				danmaku: {
-					id: YZM.id,
-					api: config.api + '?ac=dm',
-					user: config.user,
-					addition: [config.api + 'bilibili/?av=' + config.av]
-				}
 			});
 			YZM.load();
 		}
@@ -668,7 +440,7 @@ var YZM = {
 		},
 		'pause': {
 			'play': function(l, p) {
-				if (YZM.ads.pause.state == 'on') {
+				if (0) {
 					var pause_ad_html = '<div id="player_pause"><div class="tip">广告</div><a href="' + l +
 						'" target="_blank"><img src="' + p + '"></a></div>';
 					$('#player').before(pause_ad_html);
